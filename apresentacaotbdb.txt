@@ -1,0 +1,119 @@
+Aluno Matheus Dutra, 2 Ano TDS.
+
+1- Como faz para importar e exportar?
+
+Para importar utilizamos os comandos:
+
+mysql -u root -p"senha" "nomeDaDatabaseQueVoceQuerEnviarOarquivo" < "nomeDoCaminhoParaOarquivo+nomeArquivo"
+
+Para exportar é parecido, fazemos:
+
+mysqldump -u root -p"senha" > "caminhoDoArquivo+nomeAficarOarquivoExportado"
+
+2- Usar o comando "SELECT" em 3 tabelas:
+
+A)
+mysql> SELECT *
+    -> FROM tb_Desenvolvimento AS C;
++----------------------+---------------+------------------------------+--------------------------------------+
+| idtb_Desenvolvimento | idtb_Clientes | tb_Desenvolvimento_orcamento | tb_Desenvolvimento_software_detalhes |
++----------------------+---------------+------------------------------+--------------------------------------+
+|                   10 |             2 |                     12241.34 | Um software muito louco cara.        |
+|                   11 |             3 |                     12241.34 | Um software muito louco cara.        |
+|                   12 |             4 |                     12241.34 | Um software muito louco cara.        |
+|                   13 |             5 |                     12241.34 | Um software muito louco cara.        |
++----------------------+---------------+------------------------------+--------------------------------------+
+4 rows in set (0,01 sec)
+
+B)
+mysql> SELECT * 
+    -> FROM tb_Funcionarios AS C;
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+| idtb_Funcionarios | idtb_Funcionarios1 | funcao      | salario | nome    | cpf         | data_nascimento |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+|                 2 |                  2 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 3 |                  3 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 4 |                  4 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 5 |                  5 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+4 rows in set (0,00 sec)
+
+C)
+
+SELECT *
+    -> FROM tb_Clientes AS C;
++---------------+-----------------+------------------+----------------------+----------------------+
+| idtb_Clientes | tb_Clientes_cpf | tb_Clientes_cnpj | tb_Clientes_telefone | tb_Clientes_endereco |
++---------------+-----------------+------------------+----------------------+----------------------+
+|             2 | 13138931960     | vazio            | 459923105233214      | Rua 2                |
+|             3 | 13138931960     | vazio            | 459923105233214      | Rua 3                |
+|             4 | 13138931960     | vazio            | 459923105233214      | Rua 4                |
+|             5 | 13138931960     | vazio            | 459923105233214      | Rua 5                |
++---------------+-----------------+------------------+----------------------+----------------------+
+4 rows in set (0,00 sec)
+
+
+3- Litar os fúncionarios que começam com a letra "J" e tem o gerente número 5.
+
+mysql> SELECT * FROM tb_Funcionarios WHERE idtb_Funcionarios1 = '5' AND nome >='J';
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+| idtb_Funcionarios | idtb_Funcionarios1 | funcao      | salario | nome    | cpf         | data_nascimento |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+|                 5 |                  5 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+1 row in set (0,00 sec)
+
+
+4- Corrigir, e listar o nome dele e do gerente, pois você não sabe o ID do gerente.
+
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+| idtb_Funcionarios | idtb_Funcionarios1 | funcao      | salario | nome    | cpf         | data_nascimento |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+|                 5 |                  5 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+
+SELECT*
+FROM tb_Funcionarios
+INNER JOIN tb_Funcionarios_has_tb_Desenvolvimento
+ON tb_Funcionarios.idtb_Funcionarios = tb_Funcionarios_has_tb_Desenvolvimento.idtb_Funcionarios; 
+
+
+5- Juntar a tabela clientes, desenvolvimento, funcionarios_has e funcionarios, e dizer os funcionarios que começam com a letra J. 
+
+SELECT*
+FROM tb_Funcionarios
+INNER JOIN tb_Clientes, tb_Desenvolvimento, tb_Funcionarios_has_tb_Desenvolvimento
+WHERE nome >='J';
+
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+| idtb_Funcionarios | idtb_Funcionarios1 | funcao      | salario | nome    | cpf         | data_nascimento |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+|                 2 |                  2 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 3 |                  3 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 4 |                  4 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
+|                 5 |                  5 | Programador |  8000.2 | Jailson | 52325212332 | 1992-12-03      |
++-------------------+--------------------+-------------+---------+---------+-------------+-----------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
