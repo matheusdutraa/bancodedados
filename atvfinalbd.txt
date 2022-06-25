@@ -1,0 +1,139 @@
+- Criando o banco de dados
+
+CREATE DATABASE db_Locadora
+DEFAULT character set utf8
+DEFAULT collate utf8_general_ci
+
+//Tabela
+
+CREATE TABLE tb_Cliente(
+Id INT NOT NULL auto_increment,
+nome VARCHAR(45) NOT NULL,
+endereco VARCHAR(45) NOT NULL,
+bairro VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL,
+uf VARCHAR(2) NOT NULL,
+telefone VARCHAR(45) NOT NULL,
+PRIMARY KEY(Id)
+) DEFAULT charset = utf8;
+
+//insert (colocar valores)
+
+INSERT INTO tb_Cliente (nome, endereco, bairro, cidade, uf, telefone) VALUES ('Matheus', Avenida Paraná 252', 'Centro', 'Foz do Iguacu', 'PR', '45999999999');
+
+//alter (fazendo alterações)
+
+ALTER TABLE tb_Cliente
+add column cpf VARCHAR(18);
+
+ALTER TABLE tb_Cliente
+drop column cpf;
+
+ALTER TABLE tb_Cliente
+add column cpf VARCHAR(18) after endereco;
+
+ALTER TABLE tb_Cliente
+add rg INT first;
+
+ALTER TABLE tb_Cliente
+modify column cpf VARCHAR(11) NOT NULL;
+
+ALTER TABLE tb_Cliente
+change column cpf prof VARCHAR(11);
+
+ALTER TABLE tb_Cliente
+rename clientes;
+
+//Criação+Alteração
+
+CREATE TABLE IF NOT EXISTS tb_Locacoes(
+codigoCliente INT VARCHAR(45) NOT NULL,
+codigoVeiculo INT VARCHAR(45) NOT NULL,
+dataSaida DATE NOT NULL,
+dataRetorno DATE NOT NULL
+) DEFAULT charset=utf8;
+
+ALTER TABLE tb_Locacoes
+add column IdLocacoes INT first;
+
+ALTER TABLE tb_Locacoes
+add primary key(IdLocacoes);
+
+//Tabela N P/ N
+
+CREATE TABLE tb_Veiculo(
+IdVeiculo INT NOT NULL auto_increment,
+nome VARCHAR(45) NOT NULL,
+tipo VARCHAR(45) NOT NULL,
+locado BIT(1) NOT NULL,
+primary key(Id),
+foreign key (IdVeiculo) references clientes(Id),
+foreign key (IdLocacoes) references tb_Locacoes(IdLocacoes) 
+)default charset=utf8;
+
+INSERT INTO tb_Veiculo VALUES
+('Toyota', 'Sedan', '1');
+
+INSERT INTO tb_Locacoes VALUES
+('42', '11', '05-04-2022', '21/04/2022');
+
+//Select+InnerJoin
+
+SELECT * from tb_Cliente g
+JOIN tb_Veiculo a
+on g.Id = a.IdVeiculo;
+
+SELECT g.nome, IdLocacoes FROM clientes g
+JOIN tb_Veiculo a
+ON g.id = a.IdVeiculo;
+
+SELECT g.nome, a.IdLocacoes, c.nome FROM clientes g
+JOIN tb_Veiculo a
+ON g.Id = a.IdVeiculo
+JOIN tb_Locacoes c
+ON a.IdLocacoes = c.IdLocacoes;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
